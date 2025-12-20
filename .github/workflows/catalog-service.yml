@@ -2,7 +2,11 @@ name: Catalog Service
 
 on:
   push:
-  workflow_dispatch:  # Allows manual trigger
+    paths:
+      - 'catalog-service/**'
+    branches:
+      - '*'
+  workflow_dispatch:  # Keep this for manual testing
 
 jobs:
   build:
