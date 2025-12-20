@@ -5,7 +5,7 @@ on:
     paths:
       - catalog-service/**
     branches:
-      - 'master'
+      - '**'
 
 jobs:
   build:
