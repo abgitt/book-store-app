@@ -6,7 +6,6 @@ on:
       - 'catalog-service/**'
     branches:
       - '*'
-  workflow_dispatch:  # Keep this for manual testing
 
 jobs:
   build:
