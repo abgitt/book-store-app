@@ -1,0 +1,4 @@
+Postgres
+--------
+for container login :: docker exec -it 512271de1e9a psql -U postgres
+\dt :: to get all tables names.
