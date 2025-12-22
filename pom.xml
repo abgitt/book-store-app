@@ -22,6 +22,8 @@
 
   <modules>
     <module>catalog-service</module>
+    <module>order-service</module>
+
   </modules>
   <build>
     <plugins>
@@ -48,6 +50,7 @@
           </execution>
         </executions>
       </plugin>
+
     </plugins>
   </build>
 </project>
