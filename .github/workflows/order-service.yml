@@ -2,8 +2,8 @@ name: Order Service
 
 on:
   push:
-    paths:
-      - 'order-service/**'
+#    paths:
+#      - 'order-service/**'
     branches:
       - '*'
 
