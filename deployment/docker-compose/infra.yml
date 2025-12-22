@@ -2,7 +2,7 @@ name: 'spring-boot-microservices-course'
 services:
   catalog-db:
     image: postgres:17-alpine
-    container_name: catalog-db
+    container_name: catalog-dbb
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -13,3 +13,8 @@ services:
       resources:
         limits:
           memory: 500m
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
