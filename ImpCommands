@@ -52,5 +52,32 @@ Entity field Validations
 
  @Valid :: This annotation ensures that all validations ( as above ) is imposed or not
 
+----------------------
+Exception Handling
+--------
+Internal service call with try-catch
 
+{
+    "detail": "Invalid Product code:P103A",
+    "instance": "/api/orders",
+    "status": 400,
+    "title": "Invalid Order Creation Request",
+    "type": "https://api.bookstore.com/errors/bad-request",
+    "service": "order-service",
+    "error_category": "Generic",
+    "timestamp": "2025-12-23T13:05:13.648368700Z"
+}
+
+Internal service call without try-catch
+
+{
+    "detail": "404 Not Found: \"{\"detail\":\"Product with code P103A not found\",\"instance\":\"/api/products/P103A\",\"status\":404,\"title\":\"Product Not Found\",\"type\":\"https://api.bookstore.com/errors/not-found\",\"service\":\"catalog-service\",\"error_category\":\"Generic\",\"timestamp\":\"2025-12-23T13:12:06.165113700Z\"}\"",
+    "instance": "/api/orders",
+    "status": 500,
+    "title": "Internal Server Error",
+    "type": "https://api.bookstore.com/errors/server-error",
+    "service": "order-service",
+    "error_category": "Generic",
+    "timestamp": "2025-12-23T13:12:06.182146Z"
+}
 

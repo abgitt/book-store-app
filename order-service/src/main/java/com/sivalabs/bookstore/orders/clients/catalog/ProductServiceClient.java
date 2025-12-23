@@ -14,14 +14,16 @@ public class ProductServiceClient {
     }
 
     public Optional<Product> getProductByCode(String code) {
-        try{  // uncomment this code to get the correct error code. when catalog service is down, generic exception will thrownhere. But when we are handling with try catch , it will handled by caller ( in our case in validator we are havingInvalidOrderException
+        // try{  // uncomment this code to get the correct error code. when catalog service is down, generic exception
+        // will thrownhere. But when we are handling with try catch , it will handled by caller ( in our case in
+        // validator we are havingInvalidOrderException
 
         Product product =
                 restClient.get().uri("/api/products/{code}", code).retrieve().body(Product.class);
-        return Optional.ofNullable(product);}
+        return Optional.ofNullable(product); /*}
         catch (Exception e)
         {
             return Optional.empty();
-        }
+        }*/
     }
 }

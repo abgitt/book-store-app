@@ -37,6 +37,15 @@ public class ProductService {
     }
 
     public Optional<Product> getProductByCode(String code) {
+        sleep();
         return productRepository.findByCode(code).map(ProductMapper::toProduct);
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
