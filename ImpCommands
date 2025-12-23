@@ -3,3 +3,54 @@ Postgres
 for container login :: docker exec -it 512271de1e9a psql -U postgres
 \dt :: to get all tables names.
 mvnw -ls catalog-service spring-boot
+
+
+Sequence generator
+-----------------
+
+DB ::
+create sequence product_id_seq start with 1 increment by 50;
+create sequence order_id_seq start with 1 increment by 50;
+create sequence order_item_id_seq start with 1 increment by 50;
+
+    id       bigint default nextval('order_id_seq') not null,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_generator")
+    @SequenceGenerator(name = "order_id_generator", sequenceName = "order_id_seq")
+    private Long id;
+
+
+    id       bigint default nextval('order_item_id_seq') not null,
+
+    @Id
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_item_id_generator")
+        @SequenceGenerator(name = "order_item_id_generator", sequenceName = "order_item_id_seq")
+        private Long id;
+
+
+DB Mappings
+-------------
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private Set<OrderItemEntity> items;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id")
+    private OrderEntity order;
+
+
+Entity field Validations
+------------------------
+@Column(nullable = false, unique = true,name = "created_at", nullable = false, updatable = false)
+    @NotBlank(message = "Product code is required")
+ @DecimalMin("0.1")
+
+@Min(value = 1, message = "Min quantity must be 1")
+  @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+ @Valid :: This annotation ensures that all validations ( as above ) is imposed or not
+
+
+
