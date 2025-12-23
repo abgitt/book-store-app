@@ -12,12 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
     private final OrderRepository orderRepository;
     private static final Logger log = LoggerFactory.getLogger(OrderService.class);
+    private final OrderValidator orderVaidator;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, OrderValidator orderVaidator) {
         this.orderRepository = orderRepository;
+        this.orderVaidator = orderVaidator;
     }
 
     public CreateOrderResponse createOrder(String userName, CreateOrderRequest request) {
+        orderVaidator.validate(request);
         OrderEntity newOrder = OrderMapper.convertToEntity(request);
         newOrder.setUserName(userName);
         OrderEntity savedOrder = this.orderRepository.save(newOrder);
