@@ -1,11 +1,11 @@
 name: Order Service
 
-on:
-  push:
+#on:
+#  push:
 #    paths:
 #      - 'order-service/**'
-    branches:
-      - '*'
+#    branches:
+#      - '*'
 
 jobs:
   build:

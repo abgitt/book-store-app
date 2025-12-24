@@ -17,7 +17,7 @@ public class ProductServiceClient {
         this.restClient = restClient;
     }
 
-    @Retry(name = "catalog-service")
+    @Retry(name = "catalog-service", fallbackMethod = "getProductByCodeFallBack")
     public Optional<Product> getProductByCode(String code) {
         // try{  // uncomment this code to get the correct error code. when catalog service is down, generic exception
         // will thrownhere. But when we are handling with try catch , it will handled by caller ( in our case in
@@ -31,5 +31,10 @@ public class ProductServiceClient {
         {
             return Optional.empty();
         }*/
+    }
+
+    public Optional<Product> getProductByCodeFallBack(String code, Throwable t) {
+        log.info("ProductServiceClient.getProductByCodeFallBack for code: {}", code);
+        return Optional.empty();
     }
 }

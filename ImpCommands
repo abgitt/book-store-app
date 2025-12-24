@@ -81,3 +81,10 @@ Internal service call without try-catch
     "timestamp": "2025-12-23T13:12:06.182146Z"
 }
 
+When Optional is empty -> then orElseThrow will execute.
+
+Product product = productServiceClient
+                    .getProductByCode(item.code())
+                    .orElseThrow(() -> new InvalidOrderException("Invalid Product code:" + item.code()));
+
+
