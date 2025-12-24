@@ -1,5 +1,6 @@
 package com.sivalabs.bookstore.orders.clients.catalog;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ public class ProductServiceClient {
     }
 
     @Retry(name = "catalog-service", fallbackMethod = "getProductByCodeFallBack")
+    @CircuitBreaker(name = "catalog-service")
     public Optional<Product> getProductByCode(String code) {
         // try{  // uncomment this code to get the correct error code. when catalog service is down, generic exception
         // will thrownhere. But when we are handling with try catch , it will handled by caller ( in our case in

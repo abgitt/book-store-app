@@ -37,7 +37,7 @@ public class ProductService {
     }
 
     public Optional<Product> getProductByCode(String code) {
-        sleep();
+        //        sleep();
         return productRepository.findByCode(code).map(ProductMapper::toProduct);
     }
 
