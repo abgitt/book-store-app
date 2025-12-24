@@ -68,6 +68,7 @@ class OrderControllerUnitTests {
                 .andExpect(status().isBadRequest());
     }
 
+
     @Test
     void shouldThrowExceptionWhenOrderPayloadIsInvalid() throws Exception {
         CreateOrderRequest request = createOrderRequestWithInvalidCustomer();
