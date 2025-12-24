@@ -1,6 +1,7 @@
 package com.sivalabs.bookstore.orders.web.controllers;
 
 import static com.sivalabs.bookstore.orders.testdata.TestDataFactory.*;
+import static com.sivalabs.bookstore.orders.testdata.TestDataFactory.createOrderRequestWithInvalidCustomer;
 import static org.junit.jupiter.api.Named.named;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
@@ -10,11 +11,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sivalabs.bookstore.orders.domain.InvalidOrderException;
 import com.sivalabs.bookstore.orders.domain.OrderService;
 import com.sivalabs.bookstore.orders.domain.SecurityService;
 import com.sivalabs.bookstore.orders.domain.models.CreateOrderRequest;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -58,6 +61,18 @@ class OrderControllerUnitTests {
     void shouldReturnBadRequestWhenOrderPayloadIsInvalid(CreateOrderRequest request) throws Exception {
         given(orderService.createOrder(eq("siva"), any(CreateOrderRequest.class)))
                 .willReturn(null);
+
+        mockMvc.perform(post("/api/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenOrderPayloadIsInvalid() throws Exception {
+        CreateOrderRequest request = createOrderRequestWithInvalidCustomer();
+        given(orderService.createOrder(eq("siva"), any(CreateOrderRequest.class)))
+                .willThrow(new InvalidOrderException("code is invalid"));
 
         mockMvc.perform(post("/api/orders")
                         .contentType(MediaType.APPLICATION_JSON)

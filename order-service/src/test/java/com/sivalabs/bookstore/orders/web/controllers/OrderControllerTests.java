@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import com.sivalabs.bookstore.orders.AbstractIT;
 import com.sivalabs.bookstore.orders.testdata.TestDataFactory;
 import io.restassured.http.ContentType;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
@@ -15,6 +16,8 @@ class OrderControllerTests extends AbstractIT {
 
     @Test
     void shouldCreateOrderSuccessfully() {
+        mockGetProductByCode("P100", "Product 1", new BigDecimal("25.50"));
+
         var payload =
                 """
                         {
